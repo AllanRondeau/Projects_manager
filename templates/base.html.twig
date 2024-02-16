@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-{% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <main id="content" class="w-screen h-screen">
+        <nav class="flex justify-between bg-purple h-20 items-center ">
+            <h1 class=" ml-4 text-xl text-white">Gestionnaire de projets</h1>
+            <div class="mr-4 space-x-2">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a href="{{ url('app_logout') }}" class="border-2 border-error text-gray-light p-2 rounded">Se déconnecter</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ url('app_admin') }}" class="border-2 border-turquoise text-gray-light p-2 rounded">Admin</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ url('app_signin') }}" class="border-2 border-turquoise text-white p-2 rounded">S'inscrire</a>
+                    <a href="{{ url('app_login') }}" class="border-2 border-turquoise text-white p-2 rounded">Se connecter</a>
+                {% endif %}
+            </div>
+        </nav>
+        {% block content %}{% endblock %}
+    </main>
+{% endblock %}
+</body>
 </html>

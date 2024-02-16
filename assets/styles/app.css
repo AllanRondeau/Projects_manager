@@ -1,3 +1,10 @@
-body {
-    background-color: skyblue;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.inputText {
+    @apply border-2 border-purple w-52 h-8 rounded
 }
+
+

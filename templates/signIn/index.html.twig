@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="flex flex-col mt-12 justify-center items-center space-y-8">
+        <h1 class="text-2xl ">Inscription:</h1>
+        <p class="text-error">{{ error }}</p>
+        {{ form_start(form) }}
+        <div class="text-error">
+            {{ form_errors(form) }}
+        </div>
+        <div class="space-y-8 flex flex-col items-center w-full">
+            <fieldset class="flex flex-col">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+            </fieldset>
+            <fieldset class="flex flex-col">
+                {{ form_label(form.password) }}
+                {{ form_widget(form.password) }}
+            </fieldset>
+            <fieldset class="flex flex-col">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </fieldset>
+            <fieldset class="flex flex-col">
+                {{ form_label(form.firstName) }}
+                {{ form_widget(form.firstName) }}
+            </fieldset>
+            <a href="{{ url('app_login') }}" class="text-turquoise underline text-sm">Vous avez déjà un compte? Connectez vous</a>
+            <div class="border-2 border-purple text-dark-slate-gray w-36 h-8 flex justify-center items-center rounded hover:w-40 transition-all">
+                {{ form_row(form.save) }}
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
